@@ -1,10 +1,10 @@
 %%
-%ÌáÈ¡MSERÇøÓò²¢±£´æ
-%mser.tifÎª¶şÖµ»¯µÄmserÇøÓòÍ¼Ïñ
+%æå–MSERåŒºåŸŸå¹¶ä¿å­˜
+%mser.tifä¸ºäºŒå€¼åŒ–çš„mseråŒºåŸŸå›¾åƒ
 im=imread('000078.jpg');
 im=im2double(rgb2gray(im));
 [m,n]=size(im);
-%¼ì²âMSERÇøÓò
+%æ£€æµ‹MSERåŒºåŸŸ
 [mserregions,mserconcomp]=detectMSERFeatures(im,'ThresholdDelta',4);
 figure,imshow(im);
 hold on
@@ -18,15 +18,15 @@ im2(region)=im(region);
 figure,imshow(~im2);
 imwrite(~im2,'mser.tif');
 %%
-%ÔÚmserÇøÓòµÄ»ù´¡ÉÏ¼ÆËã±Ê»­¿í¶ÈÍ¼Ïñ
-%±£´æÎªswtmap.tif
+%åœ¨mseråŒºåŸŸçš„åŸºç¡€ä¸Šè®¡ç®—ç¬”ç”»å®½åº¦å›¾åƒ
+%ä¿å­˜ä¸ºswtmap.tif
 str='mser.tif';
-swtmap2=SwtTransform(str);
+swtmap2=SwtTransform(str,1);
 imwrite(swtmap2,'swtmap.tif');
 %%
-%¼ÆËãÔ­Í¼µÄ±Ê»­¿í¶ÈÍ¼Ïñ
-%±£´æÎªswtmap2.tif
+%è®¡ç®—åŸå›¾çš„ç¬”ç”»å®½åº¦å›¾åƒ
+%ä¿å­˜ä¸ºswtmap2.tif
 str2='000078.jpg';
-swtmap2=SwtTransform(str2);
+swtmap2=SwtTransform(str2,1);
 imwrite(swtmap2,'swtmap2.tif');
 
