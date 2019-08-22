@@ -1,3 +1,5 @@
+%å‡½æ•°åŠŸèƒ½ï¼šè®¡ç®—è¾“å…¥å›¾åƒçš„ç¬”ç”»å®½åº¦å›¾åƒ
+%åŒ…å«ä¸¤æ¬¡è®¡ç®—ï¼Œç¬¬äºŒæ¬¡ä¸ºç¬”ç”»æ‹è§’å¤„çš„è®¡ç®—å€¼çš„ä¿®æ­£
 function [swtmap2]=SwtTransform(str)
  im=imread(str);
  if size(im,3)==3
@@ -14,9 +16,9 @@ dx = imfilter(im,sobelMask);
 dy = imfilter(im,sobelMask');
 [edgePointRows, edgePointCols] = find(edgeMap);
 
-%³õÊ¼»¯Ìİ¶È½Ç¶È¾ØÕó
+%åˆå§‹åŒ–æ¢¯åº¦è§’åº¦çŸ©é˜µ
 theta=zeros(size(edgeMap,1),size(edgeMap,2));
-%¼ÆËã±ßÔµÍ¼ÏñÖĞÃ¿¸öÏñËØµÄÌİ¶È·½Ïò
+%è®¡ç®—è¾¹ç¼˜å›¾åƒä¸­æ¯ä¸ªåƒç´ çš„æ¢¯åº¦æ–¹å‘
 for i=1:size(edgeMap,1)
     for j=1:size(edgeMap,2)
         if edgeMap(i,j)==1
@@ -25,7 +27,7 @@ for i=1:size(edgeMap,1)
     end
 end
 [m,n] = size(edgeMap);
-% ³õÊ¼»¯±Ê»­¿í¶È
+% åˆå§‹åŒ–ç¬”ç”»å®½åº¦
 swtMap = zeros(m,n);
 for i=1:m
     for j=1:n
@@ -33,10 +35,10 @@ for i=1:m
     end
 end
 
-% ±Ê»®¿í¶È×î´óÖµ
+% ç¬”åˆ’å®½åº¦æœ€å¤§å€¼
 maxStrokeWidth = 350;
 
-% ³õÊ¼»¯¾ØÕó´¢´æËùÓĞ¿ÉÄÜµÄ±Ê»­µã
+% åˆå§‹åŒ–çŸ©é˜µå‚¨å­˜æ‰€æœ‰å¯èƒ½çš„ç¬”ç”»ç‚¹
 strokePointsX = zeros(size(edgePointCols));
 strokePointsY = zeros(size(strokePointsX));
 sizeOfStrokePoints = 0;
@@ -53,11 +55,11 @@ for i=1:size(edgePointRows)
     pointOfRayX = zeros(maxStrokeWidth,1);
     pointOfRayY = zeros(maxStrokeWidth,1);
     
-    % ¼ÇÂ¼ÉäÏßµÄµÚÒ»¸öµã
+    % è®°å½•å°„çº¿çš„ç¬¬ä¸€ä¸ªç‚¹
     pointOfRayX(sizeOfRay+1) = initialX;
     pointOfRayY(sizeOfRay+1) = initialY;
     
-    % Ôö¼ÓÉäÏß³¤¶È
+    % å¢åŠ å°„çº¿é•¿åº¦
     sizeOfRay = sizeOfRay + 1;
 
     while step < maxStrokeWidth
@@ -71,19 +73,19 @@ for i=1:size(edgePointRows)
             break
         end
         
-        % ¼ÇÂ¼ÉäÏßµÄÏÂÒ»¸öµã
+        % è®°å½•å°„çº¿çš„ä¸‹ä¸€ä¸ªç‚¹
         pointOfRayX(sizeOfRay+1) = nextX;
         pointOfRayY(sizeOfRay+1) = nextY;
         
-        %Ôö¼ÓÉäÏß³¤¶È
+        %å¢åŠ å°„çº¿é•¿åº¦
         sizeOfRay = sizeOfRay + 1;
         
-        % ÕÒµ½¶ÔÓ¦µÄ±ßÔµÏñËØµã
+        % æ‰¾åˆ°å¯¹åº”çš„è¾¹ç¼˜åƒç´ ç‚¹
         if edgeMap(nextX,nextY)
             
             oppositeTheta = theta(nextX,nextY);
             
-            % ÅĞ¶ÏÌİ¶È·½Ïò½Ç¶È
+            % åˆ¤æ–­æ¢¯åº¦æ–¹å‘è§’åº¦
             if abs(abs(initialTheta - oppositeTheta) - pi) < pi/2
                 isStroke = 1;
                 strokePointsX(sizeOfStrokePoints+1) = initialX;
@@ -97,7 +99,7 @@ for i=1:size(edgePointRows)
     
     if isStroke
         
-        % ¼ÆËã±Ê»®¿í¶È
+        % è®¡ç®—ç¬”åˆ’å®½åº¦
         strokeWidth = sqrt((nextX - initialX)^2 + (nextY - initialY)^2);
         widthvalue(i)=strokeWidth;
         % Iterate all ray points and populate with the minimum stroke width
@@ -129,10 +131,10 @@ for i=1:sizeOfStrokePoints
     swtValues = zeros(maxStrokeWidth,1);
     sizeOfSWTValues = 0;
     
-    % ¼ÇÂ¼ÉäÏßµÚÒ»¸öµã
+    % è®°å½•å°„çº¿ç¬¬ä¸€ä¸ªç‚¹
     pointOfRayX(sizeOfRay+1) = initialX;
     pointOfRayY(sizeOfRay+1) = initialY;
-   % Ôö¼ÓÉäÏß³¤¶È
+   % å¢åŠ å°„çº¿é•¿åº¦
     sizeOfRay = sizeOfRay + 1;
     
     % Record the swt value of first stoke point
@@ -145,27 +147,27 @@ for i=1:sizeOfStrokePoints
         
         step = step + 1;
         
-        % ¼ÇÂ¼ÉäÏßµÄÏÂÒ»¸öµã
+        % è®°å½•å°„çº¿çš„ä¸‹ä¸€ä¸ªç‚¹
         pointOfRayX(sizeOfRay+1) = nextX;
         pointOfRayY(sizeOfRay+1) = nextY;
         
-        % Ôö¼ÓÉäÏß³¤¶È
+        % å¢åŠ å°„çº¿é•¿åº¦
         sizeOfRay = sizeOfRay + 1;
         
         % Record the swt value of next stoke point
         swtValues(sizeOfSWTValues+1) = swtMap(nextX,nextY);
         sizeOfSWTValues = sizeOfSWTValues + 1;
         
-        %ÕÒµ½¶ÔÓ¦µÄÏñËØµã
+        %æ‰¾åˆ°å¯¹åº”çš„åƒç´ ç‚¹
         if edgeMap(nextX,nextY)
             break
         end
     end
     
-    % ¼ÆËã±Ê»­¿í¶ÈÖĞÖµ
+    % è®¡ç®—ç¬”ç”»å®½åº¦ä¸­å€¼
     strokeWidth = median(swtValues(1:sizeOfSWTValues));
     
-    % È¡×îĞ¡Öµ
+    % å–æœ€å°å€¼
     for j=1:sizeOfRay
         swtMap(pointOfRayX(j),pointOfRayY(j)) = min(swtMap(pointOfRayX(j),pointOfRayY(j)),strokeWidth);
     end
