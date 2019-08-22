@@ -3,23 +3,23 @@ clear;
 clc;
 im=(imread('000078.jpg'));
 im2=double(im);
-% ¶ÁÈ¡Í¼Ïñ
+% è¯»å–å›¾åƒ
 I_src =imread('swtmap.tif');
 I_src=im2double(I_src);
 I_Src =im2double(imread('swtmap2.tif'));
 [a,b]=size(I_src);
-% ÏÔÊ¾Ô­Í¼
+% æ˜¾ç¤ºåŸå›¾
 %figure;
 %imshow(im);
-%title('Ô­Ê¼Í¼Ïñ');
+%title('åŸå§‹å›¾åƒ');
 I_bw = ~im2bw(I_src,0.9);
-% Á¬Í¨Óò·ÖÎö
+% è¿é€šåŸŸåˆ†æ
 S = regionprops(I_bw,'all');
-%½«Íâ½Ó¾ØĞÎ×éºÏÎªÒ»ÁĞ
+%å°†å¤–æ¥çŸ©å½¢ç»„åˆä¸ºä¸€åˆ—
 RECT = cat(1,S.BoundingBox);
 figure;
 imshow(im);
-title('»­³ö×îĞ¡Íâ½Ó¾ØĞÎ');
+title('ç”»å‡ºæœ€å°å¤–æ¥çŸ©å½¢');
 hold on;
 Length = size(RECT,1);
 for i = 1:Length
@@ -27,33 +27,33 @@ for i = 1:Length
 end
 hold off
 %%
-%»­³ö×îĞ¡Íâ½Ó¾ØĞÎ(É¸Ñ¡Ç°)
+%ç”»å‡ºæœ€å°å¤–æ¥çŸ©å½¢(ç­›é€‰å‰)
 Length = size(RECT,1);
-% ´æ´¢³¤¿í±È
+% å­˜å‚¨é•¿å®½æ¯”
 Ratio = zeros(Length,1);
-% ´æ´¢»Ò¶È¾ùÖµ
+% å­˜å‚¨ç°åº¦å‡å€¼
 R_mean = zeros(Length,1);
-% ´æ´¢»Ò¶ÈÖĞÖµ
+% å­˜å‚¨ç°åº¦ä¸­å€¼
 R_median = zeros(Length,1);
-% ´æ´¢»Ò¶È·½²î
+% å­˜å‚¨ç°åº¦æ–¹å·®
 R_variance = zeros(Length,1);
-%´æ´¢¾ØĞÎ±ß³¤
+%å­˜å‚¨çŸ©å½¢è¾¹é•¿
 side = zeros(Length,1);
-%´æ´¢´æÏñËØ±È
+%å­˜å‚¨å­˜åƒç´ æ¯”
 rate=zeros(Length,1);
-%´æ´¢Ãæ»ı
+%å­˜å‚¨é¢ç§¯
 area=zeros(Length,1);
 Rate=zeros(Length,1);
-%´æ´¢ÓĞÓÃµÄ¾ØĞÎ
+%å­˜å‚¨æœ‰ç”¨çš„çŸ©å½¢
 real=zeros(Length,1);
 j=1;
 for i = 1:size(RECT,1)
-    % ¼ÆËã³¤¿í±È
+    % è®¡ç®—é•¿å®½æ¯”
     Ratio(i,1) = max(RECT(i,3:4))/min(RECT(i,3:4));
-    % È¡³ö¾ØĞÎ¶ÔÓ¦µÄÔ­Í¼ÏñÇøÓò
-    %RECT(i,1) RECT(i,2) RECT(i,3) RECT(i,4)·Ö±ğÎª¾ØĞÎµÄ×óÉÏ½ÇµÄºá×İ×ø±ê£¬ÒÔ¼°¿í¶ÈºÍ¸ß¶È
+    % å–å‡ºçŸ©å½¢å¯¹åº”çš„åŸå›¾åƒåŒºåŸŸ
+    %RECT(i,1) RECT(i,2) RECT(i,3) RECT(i,4)åˆ†åˆ«ä¸ºçŸ©å½¢çš„å·¦ä¸Šè§’çš„æ¨ªçºµåæ ‡ï¼Œä»¥åŠå®½åº¦å’Œé«˜åº¦
     I_rect = (I_Src(round(RECT(i,2)):round(RECT(i,2))+RECT(i,4),round(RECT(i,1)):round(RECT(i,1))+RECT(i,3)));
-    %Í³¼ÆÏñËØÊı
+    %ç»Ÿè®¡åƒç´ æ•°
     s=1;
     count=0;
      I_rect2=zeros(size(I_rect,1)*size(I_rect,2),1);
@@ -67,30 +67,30 @@ for i = 1:size(RECT,1)
         end
     end
     
-    %¼ÆËãÃæ»ı
+    %è®¡ç®—é¢ç§¯
     area(i,1)=size(I_rect,1)*size(I_rect,2);
-    %¼ÆËãÏñËØÕ¼±È
+    %è®¡ç®—åƒç´ å æ¯”
     rate(i,1)=count/(size(I_rect,1)*size(I_rect,2));
-    %¼ÆËã×îĞ¡×î´óÖµ±È
+    %è®¡ç®—æœ€å°æœ€å¤§å€¼æ¯”
     I_rect3=I_rect2( I_rect2~=0);
     %Rate(i,1)=max(I_rect3);
     
-    % ¼ÆËã¾ùÖµ
+    % è®¡ç®—å‡å€¼
     R_mean(i,1) = mean(I_rect3);
-    % ¼ÆËãÖĞÖµ
+    % è®¡ç®—ä¸­å€¼
     R_median(i,1) = median(I_rect3(:));
-    % ¼ÆËã·½²î
+    % è®¡ç®—æ–¹å·®
     R_variance(i,1) = var(I_rect3(:));
        
 end
 
 %%
-%¹éÒ»»¯
+%å½’ä¸€åŒ–
 R_mean=R_mean./max(R_mean);
 R_median=R_median./max(R_median);
 R_variance=R_variance./max(R_variance);
 
-%Éè¶¨ãĞÖµ(¿Éµ÷Õû)£¬É¸Ñ¡²¢±£´æ
+%è®¾å®šé˜ˆå€¼(å¯è°ƒæ•´)ï¼Œç­›é€‰å¹¶ä¿å­˜
 min_area=min(area(:,1));
 max_area=max(area(:,1));
 for i=1:size(RECT,1)
@@ -100,10 +100,10 @@ for i=1:size(RECT,1)
     end
 end
 
-%%»­É¸Ñ¡ºóµÄ×îĞ¡Íâ½Ó¾ØĞÎÒÔ¼°¼ÇÂ¼Êı¾İ
+%%ç”»ç­›é€‰åçš„æœ€å°å¤–æ¥çŸ©å½¢ä»¥åŠè®°å½•æ•°æ®
 real2=(real~=0);
 real_length=sum(real2(:));
-%¼ÆËãÉ¸Ñ¡Ö®ºóµÄÊı¾İ
+%è®¡ç®—ç­›é€‰ä¹‹åçš„æ•°æ®
 Ratio2=zeros(real_length,1);
 R_mean2=zeros(real_length,1);
 R_median2=zeros(real_length,1);
@@ -120,7 +120,7 @@ end
 remark=zeros(real_length,1);
 figure;
 imshow(im);
-title('»­³ö×îĞ¡Íâ½Ó¾ØĞÎ');
+title('ç”»å‡ºæœ€å°å¤–æ¥çŸ©å½¢');
 hold on;
 for k=1:real_length
     rectangle('position', RECT(real(k,1),:), 'EdgeColor', 'r','LineWidth',1.5);
@@ -130,9 +130,9 @@ hold off
 %%
 figure;
 imshow(im);
-title('»­³öºÏ²¢¾ØĞÎ');
+title('ç”»å‡ºåˆå¹¶çŸ©å½¢');
 hold on;
-%ºÏ²¢ÏàÁÚµÄ¾ØĞÎ
+%æ ¹æ®ä½ç½®ã€åŒºåŸŸé¢œè‰²ç›¸ä¼¼åº¦ã€swtå€¼çš„ç»Ÿè®¡ç‰¹æ€§ï¼Œåˆå¹¶ç›¸é‚»çš„çŸ©å½¢
 s1=zeros(real_length,1);
 s2=zeros(size(s1));
 w=zeros(size(s1));
@@ -151,12 +151,14 @@ text2=zeros(size(s1));
 
 JuXing=zeros(real_length,4);
 jj=1;
+%å‡†å¤‡ä¸¤ä¸ªæŒ‡é’ˆpå’Œqï¼Œå¼€å§‹éå†æ‰€æœ‰çš„çŸ©å½¢ï¼Œå°†ç¬¦åˆæ¡ä»¶çš„æ ‡è®°åˆå¹¶
+%å³è®¡ç®—å‡ºæ–°çŸ©å½¢çš„åæ ‡ã€é•¿å®½åº¦
 while(p<=Real_length&&q<=Real_length )
     if Real_length==1
         break;
     end
     if abs(s1(q)-s1(p)-w(p))<=20 && abs(s2(q)-s2(p))<=15 && max(R_mean2(q,1),R_mean2(p,1))/min(R_mean2(q,1),R_mean2(p,1))<=10 && h(q)/h(p)<=2              
-          %ÑÕÉ«Ìõ¼ş
+          %é¢œè‰²æ¡ä»¶
           I_p = im2(round(s2(p)):round(s2(p))+h(p),round(s1(p)):round(s1(p))+w(p),:);
           I_q = im2(round(s2(q)):round(s2(q))+h(q),round(s1(q)):round(s1(q))+w(q),:);
           I_p1 = I_bw(round(s2(p)):round(s2(p))+h(p),round(s1(p)):round(s1(p))+w(p));
@@ -194,8 +196,7 @@ while(p<=Real_length&&q<=Real_length )
             continue;
         end
     end
-     if q==Real_length && p==1
-             
+     if q==Real_length && p==1             
              s1(1)=[];w(1)=[];
              s2(1)=[];h(1)=[];
              Real_length=Real_length-1;
@@ -239,7 +240,7 @@ while(p<=Real_length&&q<=Real_length )
 end
 
 %%
-%ºÏ²¢ÖØ¸´µÄ¾ØĞÎ¿ò
+%åˆå¹¶é‡å¤çš„çŸ©å½¢æ¡†
 JuXing(any(JuXing,2)==0,:)=[];
 xmin=JuXing(:,1);
 ymin=JuXing(:,2);
@@ -263,9 +264,9 @@ ITextRegion = insertShape(im, 'Rectangle', textBBoxes,'Color','r','LineWidth',3)
 imageSize = [256,256];
 figure;
 imshow(im);
-title('ÎÄ±¾¼ì²â');
+title('æ–‡æœ¬æ£€æµ‹');
 hold on;
-%HOG+SVMÎÄ±¾ºÍ·ÇÎÄ±¾·ÖÀà
+%HOG+SVMæ–‡æœ¬å’Œéæ–‡æœ¬åˆ†ç±»
 for i=1:size(textBBoxes,1)
     I_text = im(round(ymin(i,1)):round(ymax(i,1)),round(xmin(i,1)):round(xmax(i,1)),:);
     flow_model_mat = load('./svm_model/model');
@@ -277,6 +278,3 @@ for i=1:size(textBBoxes,1)
          rectangle('position', [xmin(i,1),ymin(i,1),xmax(i,1)-xmin(i,1),ymax(i,1)-ymin(i,1)], 'EdgeColor', 'r','LineWidth',1);
     end
 end
-
-
-
