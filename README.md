@@ -23,4 +23,6 @@ QQ邮箱1372010965@qq.com
 
 实验效果
 
+![result](https://github.com/specialdog/Text-Detection/edit/master/result/result_000078.jpg)
+
 ======================================================
