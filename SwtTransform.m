@@ -1,13 +1,12 @@
 %函数功能：计算输入图像的笔画宽度图像
 %包含两次计算，第二次为笔画拐角处的计算值的修正
-function [swtmap2]=SwtTransform(str)
+function [swtmap2]=SwtTransform(str,searchDirection)
  im=imread(str);
  if size(im,3)==3
      im=rgb2gray(im);
  end
 im=im2double((im));
 %figure,imshow(im);
-searchDirection=1;
 edgeMap=edge(im,'canny');
 %figure,imshow(edgeMap,[]);
 
