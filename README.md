@@ -24,6 +24,6 @@ QQ邮箱1372010965@qq.com
 
 实验效果
 
-![result](/result/result_000078.jpg)  
+![result](/result/result_000078.jpg)    ![result](/result/result_000175.jpg)
 
 ======================================================
